@@ -5,10 +5,12 @@
 
   </head>
   <body>
-    <div id = "s1"></div>
+    <div id = "s1">
+
+	</div>
 	<script type="text/javascript">
 
-		function repaint(arr1,arr2,circles){
+		function repaint(arr1,arr2,circles,stepno){
 		console.log("entra repaint");
 		console.log(arr1 + ' arr1');
 		console.log(arr2 + ' arr2');
@@ -22,11 +24,16 @@
 					.attr("cx",arr2.indexOf(i)*30+30);
 				}
 			}
+			line = d3.select("#line");
+			line.transition().duration(1000)
+			.attr("x1",15+(stepno*30))
+			.attr("x2",15+(stepno*30))
 		}
 		repaint.immediate = 1;
 		function insertionSort(arr,circles){
            console.log(arr.length);
            var i = 0;
+		   stepno = 1;
            var clearId = setInterval(function(){
                oldarr = arr.slice();
                tosort = arr[i];
@@ -36,12 +43,8 @@
                    j--;
                }
                arr[j] = tosort;
-               //console.log("old: ");
-               //console.log(oldarr);
-               //console.log("new: ");
-               //console.log(arr);
-               repaint(oldarr,arr,circles);
-
+               repaint(oldarr,arr,circles,stepno);
+				stepno++;
 			   i++;
                if(arr.length == i){
                    clearInterval(clearId);
@@ -60,6 +63,16 @@
 		.append("svg:svg")
 		.attr("width", circlePositions.length*50)
 		.attr("height", 200);
+		
+		selectDivS1
+		.append("line")
+		.attr("x1",15)
+		.attr("y1",10)
+		.attr("x2",15)
+		.attr("y2",50)
+		.attr("id","line")
+		.attr("stroke","gray")
+		.attr("stroke-width",2);
 
 		select = selectDivS1.selectAll("circle")
 			.data(circlePositions)
@@ -71,9 +84,9 @@
 			.attr("id",function(d){return "circ" + d})
 			.style("fill", function(d){return circleColors[d-1]});
 
-		//circlePositions2 = [1,7,10,6,2,4,9,5,3,8];
-		//circlePositions2 = [1,2,3,4,5,6,7,8,9,10];
-		//repaint(circlePositions,circlePositions,select);
+			
+		
+		
 		insertionSort(circlePositions,select);
 
 		//console.log(select[0][1].id < select[0][0].id);
