@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+ <body>
+   <div id = "s1"></div>
+    <script type="text/javascript">
+
+        
+        function repaint(arr1,arr2,circles){
+        //console.log("entra repaint");
+        console.log(arr1 + ' arr1');
+        console.log(arr2 + ' arr2');
+            for(var i=1;i<=arr1.length;i++){
+                if(arr1.indexOf(i)==arr2.indexOf(i)){
+                    //console.log(i + ' repaint');
+                    //continue;
+                }else{
+                    //setTimeout(function(){
+                        circ = d3.select(circles[0][arr1.indexOf(i)]);
+                        circ.transition().duration(1500)
+                        .attr("cx",arr2.indexOf(i)*30+30);
+                    //}, 2000)
+                    //arr1 = arr2;
+                }
+            }
+            //alert('Verga ');
+        }
+        
+        function insertionSort(arr,circles){
+            console.log(arr.length);
+            var i = 0;
+            var clearId = setInterval(function(){
+                oldarr = arr.slice();
+                tosort = arr[i];
+                var j = i;
+                while(j>0 && arr[j-1] > tosort){
+                    arr[j] = arr[j-1];
+                    j--;
+                }
+                arr[j] = tosort;
+                //console.log("old: ");
+                //console.log(oldarr);
+                //console.log("new: ");
+                //console.log(arr);
+                i++;
+                if(i == arr.length){
+                    clearInterval(clearId);
+                    return;
+                }
+                repaint(oldarr,arr,circles);
+                console.log(i +' and '+ arr.length);
+            }, 2000);
+        
+        }
+        
+        circlePositions = [2,7,10,6,1,4,9,5,3,8];
+        circleColors = ["lavender","thistle","plum","violet",
+            "orchid","mediumorchid","darkorchid","darkmagenta",
+            "indigo","black"];
+        
+        selectDivS1 = d3.select("#s1")
+        .append("svg:svg")
+        .attr("width", circlePositions.length*50)
+        .attr("height", 200);
+        
+        select = selectDivS1.selectAll("circle")
+            .data(circlePositions)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d){return circlePositions.indexOf(d)*30+30})
+            .attr("cy", 30)
+            .attr("r", 12)
+            .style("fill", function(d){return circleColors[d-1]});
+        
+        //circlePositions2 = [1,7,10,6,2,4,9,5,3,8];
+        circlePositions2 = [1,2,3,4,5,6,7,8,9,10];
+        //repaint(circlePositions,circlePositions,select);
+        insertionSort(circlePositions,select);
+        /*
+        setInterval(function(){
+            var newArray = circlePositions2;
+            repaint(circlePositions, newArray, select);
+            newArray = circlePositions2.reverse();
+        }, 2000)
+    */
+    
+    </script>
+ </body>
+</html> 

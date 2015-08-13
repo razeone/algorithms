@@ -1,0 +1,27 @@
+{
+  "name": "algorithms",
+  "version": "0.0.1",
+  "homepage": "https://github.com/razeone/algorithms",
+  "authors": [
+    "Camila Pérez Gavilán Torres <cmpgt@outlook.es>",
+    "Jorge Alcaraz <root@raze.mx>"
+  ],
+  "description": "Algorithms animations using D3",
+  "main": "index.html",
+  "keywords": [
+    "d3",
+    "algorithms",
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.6"
+  }
+}
