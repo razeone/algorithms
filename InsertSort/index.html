@@ -9,6 +9,15 @@
 
 	</div>
 	<script type="text/javascript">
+	
+		function shuffleArray(array) {
+			for (var i = array.length - 1; i > 0; i--) {
+				var j = Math.floor(Math.random() * (i + 1));
+				var temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+		}
 
 		function repaint(arr1,arr2,circles,stepno){
 		console.log("entra repaint");
@@ -54,11 +63,15 @@
 
        }
 
-		circlePositions = [2,7,10,6,1,4,9,5,3,8];
+		circlePositions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 		circleColors = ["lavender","thistle","plum","violet",
 			"orchid","mediumorchid","darkorchid","darkmagenta",
 			"indigo","black"];
-
+		purpleScale = ["#FAB9FD","#EDABF0","#E09EE4","#D491D8","#C784CC","#BB76BF",
+			"#AE69B3","#A25CA7","#954F9B","#88428F","#7C3482","#6F2776","#631A6A","#560D5E","#4A0052"];
+		
+		shuffleArray(circlePositions);
+		
 		selectDivS1 = d3.select("#s1")
 		.append("svg:svg")
 		.attr("width", circlePositions.length*50)
@@ -82,7 +95,7 @@
 			.attr("cy", 30)
 			.attr("r", 12)
 			.attr("id",function(d){return "circ" + d})
-			.style("fill", function(d){return circleColors[d-1]});
+			.style("fill", function(d){return purpleScale[d-1]});
 
 			
 		
